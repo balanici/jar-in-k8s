@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: jar-in-k8s
+  name: jar-in-k8s
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: jar-in-k8s
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: jar-in-k8s
+    spec:
+      containers:
+      - image: igori/jar-in-k8s
+        name: jar-in-k8s
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: jar-in-k8s
+  name: jar-in-k8s
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: jar-in-k8s
+  type: ClusterIP
+status:
+  loadBalancer: {}
